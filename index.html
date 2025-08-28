@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row g-3">
+  <div class="col-12 col-lg-3">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Controls</h5>
+
+        <label class="form-label mt-2">Select tickers</label>
+        <select id="tickers" class="form-select" multiple size="7">
+          {% for t in default_tickers %}
+          <option selected>{{ t }}</option>
+          {% endfor %}
+          <option>^NSEI</option>
+          <option>^NSEBANK</option>
+          <option>GOOGL</option>
+          <option>META</option>
+          <option>NVDA</option>
+        </select>
+
+        <div class="row mt-3">
+          <div class="col">
+            <label class="form-label">Start date</label>
+            <input id="start" type="date" class="form-control" />
+          </div>
+          <div class="col">
+            <label class="form-label">End date</label>
+            <input id="end" type="date" class="form-control" />
+          </div>
+        </div>
+
+        <label class="form-label mt-3">Interval</label>
+        <select id="interval" class="form-select">
+          {% for iv in intervals %}
+          <option value="{{ iv }}" {% if iv=='1d' %}selected{% endif %}>{{ iv }}</option>
+          {% endfor %}
+        </select>
+
+        <hr />
+        <h6>Indicators</h6>
+        <div class="form-check"><input class="form-check-input" type="checkbox" id="sma20" checked><label class="form-check-label" for="sma20">SMA 20</label></div>
+        <div class="form-check"><input class="form-check-input" type="checkbox" id="sma50"><label class="form-check-label" for="sma50">SMA 50</label></div>
+        <div class="form-check"><input class="form-check-input" type="checkbox" id="ema20"><label class="form-check-label" for="ema20">EMA 20</label></div>
+        <div class="form-check"><input class="form-check-input" type="checkbox" id="ema50"><label class="form-check-label" for="ema50">EMA 50</label></div>
+        <div class="form-check"><input class="form-check-input" type="checkbox" id="rsi"><label class="form-check-label" for="rsi">RSI 14</label></div>
+        <div class="form-check mt-2"><input class="form-check-input" type="checkbox" id="normalize"><label class="form-check-label" for="normalize">Normalize (start=100)</label></div>
+
+        <button id="loadBtn" class="btn btn-success w-100 mt-3">Load</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-9">
+    <ul class="nav nav-pills mb-3" id="tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="overview-tab" data-bs-toggle="pill" data-bs-target="#overview" type="button" role="tab">Overview</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="audit-tab" data-bs-toggle="pill" data-bs-target="#audit" type="button" role="tab">Audit</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="compare-tab" data-bs-toggle="pill" data-bs-target="#compare" type="button" role="tab">Compare</button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="overview" role="tabpanel">
+        <div id="overview-root"></div>
+      </div>
+      <div class="tab-pane fade" id="audit" role="tabpanel">
+        <div class="alert alert-secondary small">Tip: select a single ticker for a focused audit. If multiple are selected, we’ll audit each.</div>
+        <div id="audit-root"></div>
+      </div>
+      <div class="tab-pane fade" id="compare" role="tabpanel">
+        <div id="compare-root"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
