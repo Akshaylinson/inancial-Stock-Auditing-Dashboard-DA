@@ -1,0 +1,5 @@
+body { background:#0b0f14; color:#e6eef7; }
+.navbar, .card { background:#121821; border-color:#1c2430; }
+.kpi small { color:#9fb0c3; display:block; }
+.nav-pills .nav-link.active { background:#10b981; }
+.table-dark { --bs-table-bg:#0f141a; }
